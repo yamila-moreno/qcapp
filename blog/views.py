@@ -16,19 +16,20 @@ def post_detail(request, pk):
 
 
 def post_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        print("*************************** POST")
-        print(form)
-        print(form.errors)
-        if form.is_valid():
-            print("*************************** VALID")
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            print(post)
-            return redirect('blog.views.post_detail', pk=post.pk)
-    else:
-        form = PostForm()
-    return render(request, 'blog/post_edit.html', {'form': form})
+  if request.method == "POST":
+      form = PostForm(request.POST)
+      print("*************************** POST")
+      print(form)
+      print(form.errors)
+      if form.is_valid():
+          print("*************************** VALID")
+          post = form.save(commit=False)
+          post.author = request.user
+          post.published_date = timezone.now()
+          post.save()
+          print(post)
+          return redirect('blog.views.post_detail', pk=post.pk)
+  else:
+      print("*************************** GET")
+      form = PostForm()
+  return render(request, 'blog/post_edit.html', {'form': form})
